@@ -73,6 +73,25 @@ The `--llm` run evaluates generation with Ragas and uses the local Ollama model 
 - `LLMContextRecall`
 - refusal accuracy on the unanswerable question
 
+Generation, 2026-09-30, 15 answerable questions plus 1 unanswerable. `qwen2.5:7b` is both the agent and the Ragas judge, running locally on Ollama:
+
+| Metric | qwen2.5:7b | llama3.2:3b (first run) |
+|---|---|---|
+| Faithfulness | 0.73 | 0.50 |
+| LLM context recall | 0.81 | 0.80 |
+| Answer relevancy | 0.52 ⚠️ | ~1.00 ⚠️ |
+| False refusals (answerable questions refused) | 0 | — |
+| Judge exceptions | 0 | 25 |
+
+**Why the 3B run isn't trustworthy.** It threw 25 judge exceptions, and Ragas records a failed judgment as NaN. Pandas' `mean()` silently skips NaN, so each 3B average may cover only a few of the 15 questions. That is the most likely reason answer relevancy came out at a suspiciously perfect ~1.00.
+
+The eval now:
+- records how many samples each metric actually scored (`<metric>_scored`)
+- saves per-question scores to the results file
+- writes one results file per judge model instead of overwriting
+
+**Answer relevancy is under investigation.** Ragas `ResponseRelevancy` asks the judge to generate questions from the answer. It scores the cosine similarity between those questions and the original, using the MiniLM embedder, and scores 0 when the judge flags the answer as noncommittal. Short, cited answers and a small embedder both pull the score down. The per-question scores from the next run will show which is driving it.
+
 ## Tests
 
 ```bash

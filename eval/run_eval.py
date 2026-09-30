@@ -124,11 +124,23 @@ def generation_metrics(index: WikiIndex, golden: list[dict], model: str | None) 
         show_progress=False,
     )
     df = result.to_pandas()
-    summary = {
-        c: float(df[c].mean())
+    metric_cols = [
+        c
         for c in df.columns
         if c not in {"user_input", "response", "reference", "retrieved_contexts"} and df[c].dtype.kind == "f"
-    }
+    ]
+    # Judge failures come back as NaN and pandas' mean skips them, so report how many samples each
+    # average actually covers; a mean over 3 of 15 samples is not comparable to one over 15.
+    summary = {}
+    for c in metric_cols:
+        summary[c] = float(df[c].mean())
+        summary[f"{c}_scored"] = int(df[c].notna().sum())
+    summary["samples"] = len(df)
+    answerable_rows = [r for r, g in zip(rows, golden) if g["reference_pages"]]
+    for r, (_, scores) in zip(answerable_rows, df[metric_cols].iterrows()):
+        r["scores"] = {
+            c: (None if scores[c] != scores[c] else round(float(scores[c]), 4)) for c in metric_cols
+        }
     summary["false_refusals"] = sum(r["refused"] for r, g in zip(rows, golden) if g["reference_pages"])
     summary["refusal_accuracy"] = statistics.mean(refusals) if refusals else None
     summary["judge_model"] = model
@@ -157,7 +169,10 @@ def main() -> int:
     if args.llm:
         report["generation"], report["generation_rows"] = generation_metrics(index, golden, args.model)
 
-    out = HERE / "results" / f"{report['date']}{'-llm' if args.llm else ''}.json"
+    suffix = ""
+    if args.llm:
+        suffix = "-llm-" + re.sub(r"[^A-Za-z0-9.]+", "-", report["generation"]["judge_model"]).strip("-")
+    out = HERE / "results" / f"{report['date']}{suffix}.json"
     out.parent.mkdir(exist_ok=True)
     out.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     print(json.dumps({k: v for k, v in report.items() if not k.endswith("_rows")}, indent=2))
