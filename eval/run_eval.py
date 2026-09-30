@@ -159,7 +159,7 @@ def main() -> int:
 
     out = HERE / "results" / f"{report['date']}{'-llm' if args.llm else ''}.json"
     out.parent.mkdir(exist_ok=True)
-    out.write_text(json.dumps(report, indent=2, ensure_ascii=False))
+    out.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     print(json.dumps({k: v for k, v in report.items() if not k.endswith("_rows")}, indent=2))
     for r in report["retrieval_rows"]:
         if not r["hit"]:
