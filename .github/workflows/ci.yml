@@ -13,8 +13,9 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.11"
+          activate-environment: true
       - name: Install
-        run: uv pip install --system -e ".[eval,dev]"
+        run: uv pip install --torch-backend cpu -e ".[eval,dev]"
       - name: Lint
         run: ruff check . && ruff format --check .
       - name: Test
