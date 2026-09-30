@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: uv pip install --system -e ".[eval,dev]"
+      - name: Lint
+        run: ruff check . && ruff format --check .
+      - name: Test
+        run: pytest -q

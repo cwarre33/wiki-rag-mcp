@@ -1,0 +1,179 @@
+{
+  "date": "2026-09-30",
+  "embed_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "chunks": 384,
+  "pages": 50,
+  "retrieval": {
+    "hit@5": 0.9333333333333333,
+    "mrr": 0.8555555555555555,
+    "snippet_recall": 0.5666666666666667,
+    "questions": 15
+  },
+  "retrieval_rows": [
+    {
+      "question": "Why does SofaScope run the CLIP service as a subprocess over stdin/stdout instead of an HTTP server?",
+      "hit": true,
+      "rr": 0.5,
+      "snippet_recall": 0.0,
+      "top": [
+        "techniques/persistent-model-loading.md",
+        "decisions/sofascope-persistent-service-stdin-stdout.md",
+        "techniques/clip-faiss-visual-search.md"
+      ]
+    },
+    {
+      "question": "What signal does the SofaScope Python service print when it is ready to take requests?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 1.0,
+      "top": [
+        "decisions/sofascope-persistent-service-stdin-stdout.md",
+        "techniques/persistent-model-loading.md",
+        "interview-prep/system-design-visual-search.md"
+      ]
+    },
+    {
+      "question": "Why does SofaScope use metadata scoring instead of embeddings for text search?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 0.0,
+      "top": [
+        "decisions/sofascope-metadata-vs-embeddings.md",
+        "decisions/sofascope-metadata-vs-embeddings.md",
+        "decisions/sofascope-metadata-vs-embeddings.md"
+      ]
+    },
+    {
+      "question": "What field weights does SofaScope's metadata scoring use?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 1.0,
+      "top": [
+        "decisions/sofascope-metadata-vs-embeddings.md",
+        "decisions/sofascope-metadata-vs-embeddings.md",
+        "decisions/sofascope-metadata-vs-embeddings.md"
+      ]
+    },
+    {
+      "question": "What trade-off did SofaScope accept by dropping embeddings for text search?",
+      "hit": false,
+      "rr": 0.0,
+      "snippet_recall": 0.0,
+      "top": [
+        "production-systems/sofascope.md",
+        "techniques/hybrid-search-routing.md",
+        "interview-prep/system-design-visual-search.md"
+      ]
+    },
+    {
+      "question": "Why does AutoTrader use Llama 3.3 70B instead of a frontier model for news sentiment?",
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "snippet_recall": 0.0,
+      "top": [
+        "trading/rsi-llm-signal-strategy.md",
+        "models/llama-3-3-70b.md",
+        "decisions/autotrader-open-model-vs-frontier.md"
+      ]
+    },
+    {
+      "question": "How many LLM calls per day does AutoTrader make?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 1.0,
+      "top": [
+        "decisions/autotrader-open-model-vs-frontier.md",
+        "tools/groq.md",
+        "techniques/llm-review-pass-before-rotation.md"
+      ]
+    },
+    {
+      "question": "How long does AutoTrader keep its decisions log, and why keep outcomes longer?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 0.0,
+      "top": [
+        "decisions/autotrader-decisions-log-retention.md",
+        "trading/autotrader.md",
+        "decisions/autotrader-decisions-log-retention.md"
+      ]
+    },
+    {
+      "question": "Why did the ARC-AGI harness use custom provider adapters instead of LiteLLM?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 0.0,
+      "top": [
+        "decisions/arc-agi-adapters-vs-litellm.md",
+        "decisions/arc-agi-adapters-vs-litellm.md",
+        "decisions/arc-agi-adapters-vs-litellm.md"
+      ]
+    },
+    {
+      "question": "What methods does the ProviderAdapter interface define?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 1.0,
+      "top": [
+        "architectures/provider-adapter-pattern.md",
+        "architectures/provider-adapter-pattern.md",
+        "architectures/provider-adapter-pattern.md"
+      ]
+    },
+    {
+      "question": "How does MBR decoding pick an output?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 1.0,
+      "top": [
+        "techniques/mbr-decoding.md",
+        "techniques/mbr-decoding.md",
+        "techniques/mbr-decoding.md"
+      ]
+    },
+    {
+      "question": "What model and decoding approach did Cameron use for the Akkadian translation competition?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 0.5,
+      "top": [
+        "kaggle/deep-past-akkadian-translation.md",
+        "techniques/mbr-decoding.md",
+        "kaggle/deep-past-akkadian-translation.md"
+      ]
+    },
+    {
+      "question": "What does consensus-based memory distillation do differently from a single-pass review?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 1.0,
+      "top": [
+        "decisions/consensus-based-memory-distillation.md",
+        "decisions/consensus-based-memory-distillation.md",
+        "decisions/consensus-based-memory-distillation.md"
+      ]
+    },
+    {
+      "question": "What RSI thresholds does the dual-signal trading strategy use?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 1.0,
+      "top": [
+        "trading/rsi-llm-signal-strategy.md",
+        "trading/rsi-llm-signal-strategy.md",
+        "trading/rsi-llm-signal-strategy.md"
+      ]
+    },
+    {
+      "question": "When does RAG win over an LLM wiki?",
+      "hit": true,
+      "rr": 1.0,
+      "snippet_recall": 1.0,
+      "top": [
+        "comparisons/llm-wiki-vs-rag.md",
+        "methodology/cameron-wiki-setup.md",
+        "methodology/llm-wiki-pattern.md"
+      ]
+    }
+  ]
+}
